@@ -6,7 +6,6 @@ public class Converter {
 		int menuSelection = 0;
 		int selection;
 		double amount;
-		Converter ct = new Converter();
 		
 		while (menuSelection != 4) {
 			System.out.println("Please select an option:");
