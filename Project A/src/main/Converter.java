@@ -16,25 +16,49 @@ public class Converter {
 			System.out.println("4. Quit");
 			
 			Scanner input = new Scanner(System.in);
-			selection = input.nextInt();
+			selection = (int)getInput();
 			
 			switch(selection) {
 			case 1: System.out.println("Please enter number to convert:");
-				amount = input.nextInt() * 48;
+				amount = getInput() * 48;
 				System.out.println(amount + " teaspoons\n");
 				break;
 			case 2: System.out.println("Please enter number to convert:");
-				amount = input.nextInt() * 1.61;
+				amount = getInput() * 1.61;
 				System.out.println(amount + " kilometers\n");
 				break;
 			case 3: System.out.println("Please enter number to convert:");
-				amount = input.nextInt() * 0.83;
+				amount = getInput() * 0.83;
 				System.out.println(amount + " imperial gallons\n");
 				break;
-			case 4: System.out.println("Quitting");
+			case 4: System.out.println("Quit application");
 			 	input.close();
 				menuSelection = 4;
+				return;
+			default: System.out.println("Please enter a number between 1 and 4\n");
+				break;
 			}
 		}
+	}
+	
+	public static double getInput() {
+		Scanner scan = new Scanner(System.in);
+		boolean validInput = false;
+		
+		// check input for int or double type
+		while (!validInput) {			
+			if (!scan.hasNextInt()) {
+				if (!scan.hasNextDouble()) {
+					System.out.println("Please enter a number");
+					scan.next();
+				} else {
+					return scan.nextDouble();
+				}
+			} else {
+				return (double)scan.nextInt();
+			}
+		}
+		scan.close();
+		return -1;
 	}
 }
