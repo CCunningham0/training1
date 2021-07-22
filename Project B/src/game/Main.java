@@ -9,6 +9,13 @@ public class Main {
 		 * 	collect input
 		 * 	parse input
 		 */
+		
+		RoomManager myRoom =  new RoomManager();
+		myRoom.init();
+		//System.out.println("Exits: " + myRoom.rooms[0].getExits());
+		
+		
+		
 	}
 	
 	public static void printRoom(Player player) {
