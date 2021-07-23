@@ -7,8 +7,9 @@ public abstract class Fixture {
 	
 	
 	public Fixture(String name2, String shortDesc2, String longDesc2) {
-		// TODO Auto-generated constructor stub
+		this.name = name2;
+		this.shortDesc = shortDesc2;
+		this.longDesc = longDesc2;
 	}
-	
 	
 }

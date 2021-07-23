@@ -17,15 +17,7 @@ public class Room extends Fixture {
 		this.name = name;
 		this.shortDesc = shortDesc;
 		this.longDesc = longDesc;
-		
-		this.exits = new Room[4]; // FIXME: 4 directions, boolean based if exit or not?
-		
-		
-		
-		// set to passed in references to indexes in rooms array??
-		//input: {1,2,3,4}
-		
-		//this.exits =
+		this.exits = new Room[4];
 	}
 	
 	/*
@@ -37,7 +29,6 @@ public class Room extends Fixture {
 		this.exits[1] = east;
 		this.exits[2] = south;
 		this.exits[3] = west;	
-		
 	}
 	
 	/*
@@ -81,13 +72,11 @@ public class Room extends Fixture {
 			west = "Not an exit";
 		}
 		
-		
 		String result = "Exits: \n" + "   North: " + north + "\n"
 				+ "   East: " + east + "\n"
 				+ "   South: " + south + "\n"
 				+ "   West: " + west + "\n";
-				
-				
+						
 		System.out.println(result);
 	}
 	
