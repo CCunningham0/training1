@@ -1,17 +1,14 @@
 package fixtures;
 
-import game.RoomManager;
-
 public class Room extends Fixture {
-	/*
-	 * 4 directions 
-	 */
 	Room[] exits;
-	
 	public String name;
 	public String shortDesc;
 	public String longDesc;
 	
+	/*
+	 * Sets the Rooms properties and exits array length
+	 */
 	public Room(String name, String shortDesc, String longDesc) {
 		super(name, shortDesc, longDesc);
 		this.name = name;
@@ -73,9 +70,9 @@ public class Room extends Fixture {
 		}
 		
 		String result = "Exits: \n" + "   North: " + north + "\n"
-				+ "   East: " + east + "\n"
+				+ "   East:  " + east + "\n"
 				+ "   South: " + south + "\n"
-				+ "   West: " + west + "\n";
+				+ "   West:  " + west + "\n";
 						
 		System.out.println(result);
 	}

@@ -1,3 +1,8 @@
+/*
+ * Project A - Unit Converter
+ * 
+ */
+
 package main;
 import java.util.Scanner;
 
@@ -6,6 +11,7 @@ public class Converter {
 		int menuSelection = 0;
 		int selection;
 		double amount;
+		Scanner input = new Scanner(System.in);
 		
 		while (menuSelection != 4) {
 			System.out.println("Please select an option:");
@@ -14,7 +20,6 @@ public class Converter {
 			System.out.println("3. US Gallons to Imperial Gallons");
 			System.out.println("4. Quit");
 			
-			Scanner input = new Scanner(System.in);
 			selection = (int)getInput();
 			
 			switch(selection) {
@@ -38,6 +43,8 @@ public class Converter {
 				break;
 			}
 		}
+		
+		input.close();
 	}
 	
 	public static double getInput() {

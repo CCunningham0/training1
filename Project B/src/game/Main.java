@@ -2,51 +2,36 @@ package game;
 
 import java.util.Scanner;
 
+import fixtures.Room;
+
 public class Main {
 	private static Boolean playerQuit = false;
 	static RoomManager myRoom =  new RoomManager();
 	static Player player = new Player();
-	//static Room 
+	static Scanner scan = new Scanner(System.in);
+	
 	public static void main(String[] args) {
-		// FIXME: game loop goes here
-		/*
-		 * Create loop
-		 * 	display prompt
-		 * 	collect input
-		 * 	parse input
-		 */
-		
-		
-		
-		
-		// Call RoomManager init() method to create room and fixture objects
+		// Call RoomManager init() method to create room objects
 		myRoom.init();
 		
 		// Initial starting game instructions and starting room information
 		System.out.println("Welcome. You have begun the game in the foyer of the household.");
 		System.out.println("You may quit the game at any time by entering 'quit' into the console.");
 		System.out.println("To move around the house, enter 'go' and a direction. For example: "
-				+ "'go north'.\n"
-				+ "You may also interact with objects in the room by entering 'use' and the object's name."
-				+ " For example: 'use chair'.\n");
+				+ "'go north'.\n");
 		System.out.println("You are currently in " + myRoom.startingRoom.name + ". "
 				+ "Its information is displayed below:");
 		
 		//System.out.println(myRoom.startingRoom.name);
 		player.currentRoom = myRoom.startingRoom;
 		printRoom(player);
+		player.currentRoom.printExits();
 		System.out.println("What would you like to do?");
 		
 		// Run game loop while player has not quit (while playerQuit is false)
 		while(!playerQuit) {
-			parse(collectInput(), player);
-			
-
-			
-			
+			parse(collectInput(), player);	
 		}
-		
-		
 	}
 	
 	/*
@@ -58,7 +43,6 @@ public class Main {
 	}
 	
 	public static String[] collectInput() {
-		Scanner scan = new Scanner(System.in);
 		String input = scan.nextLine().toLowerCase();
 		
 		// Remove numbers if any
@@ -72,7 +56,6 @@ public class Main {
 
 		// Split input string into command and fixture or direction
 		String[] parsedInput = input.split(" ");
-		scan.close();
 		return parsedInput;
 	}
 	
@@ -94,7 +77,7 @@ public class Main {
 		String target = command[1];
 		
 		// Throw exception if invalid input is found
-		if (!action.equals("go") && !action.equals("use")) {
+		if (!action.equals("go")) {
 			System.out.println("Invalid command.");
 			return;
 		}
@@ -104,64 +87,33 @@ public class Main {
 					&& !target.equals("west")) {
 				System.out.println("Invalid direction.");
 				return;
-			}
-		} 
-		
-		if (action.equals("use")) {
-			// FIXME: check if command[1] does not equal any valid fixture name
-				System.out.println("Invalid object.");
-				return;
-		}
+			} else {
+				Room tempRoom = player.currentRoom;
+				player.movePlayer(action, target);
+				Room newRoom = player.currentRoom;
 				
-		if (action.equals("go")) {
-			movePlayer(action, target);
-		}	
-		
-		if (action.equals("use")) {
-			useObject();
+				// Print new room information and request new input if player moved successfully
+				if (tempRoom != newRoom) {
+					System.out.println("\nYou are currently in " + player.currentRoom.name + ". "
+							+ "Its information is displayed below:");
+					printRoom(player);
+					player.currentRoom.printExits();
+					System.out.println("What would you like to do next?");
+				}
+			}
 		}
-	}
-	
-	public static void movePlayer(String action, String target) {
-		// Check for if room exit in given direction exists (is not null)
-		try {
-			String check = player.currentRoom.getExit(target).name;
-		} catch (NullPointerException e) {
-			System.out.println("Sorry, there is no exit in that direction.");
-			return;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
-		}
-		
-		// Print move message and move player to selected room
-		switch(target) {
-			case "north":	
-				System.out.println("Moved north to " + player.currentRoom.getExit(target).name);
-				player.currentRoom = player.currentRoom.getExit(target);
-				break;
-			case "east":
-				System.out.println("Moved east to " + player.currentRoom.getExit(target).name);
-				player.currentRoom = player.currentRoom.getExit(target);
-				break;
-			case "south":
-				System.out.println("Moved south to " + player.currentRoom.getExit(target).name);
-				player.currentRoom = player.currentRoom.getExit(target);
-				break;
-			case "west":
-				System.out.println("Moved west to " + player.currentRoom.getExit(target).name);
-				player.currentRoom = player.currentRoom.getExit(target);
-				break;
-		}
-		
-		// Print new room information and request new input
-		System.out.println("\nYou are currently in " + player.currentRoom.name + ". "
-				+ "Its information is displayed below:");
-		printRoom(player);
-		System.out.println("What would you like to do next?");
-	}
-	
-	public static void useObject() {
-		// FIXME: Add code for using object (return/print object(fixture) info)
+
+		/*
+		 *  //Placeholder code for interactable object additions
+		 *	if (action.equals("use")) {
+		 *		// FIXME: check if command[1] does not equal any valid fixture name
+		 *		System.out.println("Invalid object.");
+		 *			return;
+		 *	}
+		 *					
+		 *	if (action.equals("use")) {
+		 *		useObject();
+		 *	}
+		 */
 	}
 }
